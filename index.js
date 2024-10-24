@@ -1,12 +1,22 @@
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const express = require('express');
+async function main() {
+    const usuario = await prisma.usuario.create({
+        data: {
+            nome: 'Iza',
+            email: 'iza@ifms.com',
+            password: 'izinha@ifms',
+            tipo: 'cliente',
+        },
+    });
 
-const app = express();
-app.use(express.json());
+    console.log('Novo Usuário: ' + JSON.stringify(usuario));
 
-const authRoutes = require("./routes/authRoutes");
-app.use("./auth", authRoutes);
+    const usuarios = await prisma.usuario.findMany();
+    console.log('Usuários: ');
+    console.log(usuarios);
+}
 
-app.listen(8000);
+
+main();
