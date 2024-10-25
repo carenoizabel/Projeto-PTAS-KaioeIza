@@ -2,3 +2,5 @@ node_modules
 
 prisma/banco.db
 prisma/migrations
+
+showUsers.js
