@@ -16,7 +16,7 @@ class AuthController {
     }
 
     if (!email || email.length < 10) {
-      return res.json({
+      return res.status(422).json({
         erro: true,
         mensagem: "O email deve ter pelo menos 10 caracteres.",
       });
@@ -60,12 +60,12 @@ class AuthController {
         expiresIn: "1h",
       });
 
-      return res.json({
+      return res.status(201).json({
         erro: false,
         mensagem: "Usuario cadastrado com sucesso!",
       });
     } catch (error) {
-      return res.json({
+      return res.status(500).json({
         erro: true,
         mensagem: "Ocorreu um erro, tente novamente mais tarde!" + error,
       });
@@ -81,7 +81,7 @@ class AuthController {
     });
 
     if (!usuario) {
-      return res.json({
+      return res.status(422).json({
         erro: true,
         mensagem: "Usuário não encontrado.",
       });
@@ -92,7 +92,7 @@ class AuthController {
     const senhaCorreta = bcryptjs.compareSync(password, usuario.password);
 
     if (!senhaCorreta) {
-      return res.json({
+      return res.status(422).json({
         erro: true,
         mensagem: "Senha incorreta.",
       });
@@ -101,7 +101,7 @@ class AuthController {
       expiresIn: "1h",
     });
 
-    res.json({
+    res.status(200).json({
       erro: false,
       mensagem: "Autenticação realizada com sucesso!",
       token: token,
