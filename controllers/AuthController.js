@@ -107,6 +107,24 @@ class AuthController {
       token: token,
     })
   }
+
+  static async verificaAutenticacao(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1 ]
+
+    if(!token){
+      return res.status(422).json({message: "Token não encontrado."});
+    }
+
+    jwt.verify(token, process.env.SECRET_KEY, (err, payload) => {
+      if(err){
+        return res.status(401).json({message: "Token inválido."});
+      }
+
+      req.usuarioId = payload.id;
+      next();
+    })
+  }
 }
 
 module.exports = AuthController;
