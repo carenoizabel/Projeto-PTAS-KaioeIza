@@ -12,11 +12,15 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true}));
 
+// Rotas de autenticação e afins
 const authRoutes = require("./routes/authRoutes");
 app.use("/auth", authRoutes);
 
 const perfilRoutes = require ("./routes/perfilRoutes");
 app.use("/perfil", AuthController.autenticar, perfilRoutes);
+
+const mesaRoutes = require ("./routes/mesaRoutes");
+app.use("/mesa", mesaRoutes);
 
 
 app.listen(8000, () =>{

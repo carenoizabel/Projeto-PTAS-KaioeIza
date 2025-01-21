@@ -107,8 +107,9 @@ class AuthController {
       token: token,
     })
   }
-
-  static async verificaAutenticacao(req, res, next) {
+  
+  //Middleware para checar se usuário esta autenticado
+  static async autenticar(req, res, next) {
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1 ]
 
@@ -124,6 +125,22 @@ class AuthController {
       req.usuarioId = payload.id;
       next();
     })
+  }
+
+  //Middleware para checar se usuário é administrador
+  static async verificaPermissaoAdm(req, res, next) {
+     const usuario = await prisma .usuario.findUnique({
+      where: {id: req.usuarioId},
+     });
+
+     if(usuario.tipo === "adm"){
+      next()
+     }else{
+      return res.status(401).json({
+        erro: true,
+        mensagem: "Você não tem permissão para acessar esse recurso!",
+      })
+     }
   }
 }
 
