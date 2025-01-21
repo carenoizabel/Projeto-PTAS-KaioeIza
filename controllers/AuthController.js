@@ -123,6 +123,7 @@ class AuthController {
       }
 
       req.usuarioId = payload.id;
+      req.usuarioTipo = payload.tipo;
       next();
     })
   }
