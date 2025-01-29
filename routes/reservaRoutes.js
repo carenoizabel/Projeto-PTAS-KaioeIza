@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const ReservaContoller = require('../controllers/ReservaContoller');
+const ReservaController = require('../controllers/ReservaController');
 const AuthController = require('../controllers/AuthController');
 
-router.post("/novo", ReservaContoller.registrarReserva);
+router.post("/novo", ReservaController.registrarReservas);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const prisma = require("../prisma/prismaClient");
 const router = require("../routes/mesaRoutes");
 
-class ReservaContoller {
+class ReservaController {
     static async registrarReservas(req, res) {
         const { mesaId, n_pessoas } = req.body;
         const data = new Date(req.body.data);
@@ -54,4 +54,4 @@ class ReservaContoller {
     }
 }
 
-module.exports = ReservaContoller;
+module.exports = ReservaController;
