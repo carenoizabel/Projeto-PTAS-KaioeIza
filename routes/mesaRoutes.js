@@ -1,16 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const MesaContoller = require('../controllers/MesaController');
+const MesaController = require('../controllers/MesaController');
 const AuthController = require('../controllers/AuthController');
 
 router.post(
     '/novo', 
     AuthController.autenticar,
      AuthController.verificaPermissaoAdm, 
-     MesaContoller.novaMesa
+     MesaController.novaMesa
     );
 
-    //route.get("/", MesaContoller.buscarMesas);
+    //route.get("/", MesaController.buscarMesas);
 
 module.exports = router;

@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const profileRoutes = require('../controllers/PerfilController');
+const PerfilController = require('../controllers/PerfilController');
 
 router.get("/", PerfilController.getPerfil);
 
-router.put("/", PerfilController.atualizaPerfil);
+router.put("/", PerfilController.atualizarPerfil);
 
 // / perfil/atlualizar
 // / perfil/buscar
