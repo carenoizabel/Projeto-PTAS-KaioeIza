@@ -19,11 +19,22 @@ class ReservaContoller {
         });
 
         //verificar se a data da reserva é >= hoje
+        if (data < hoje) {
+            return res.status(400).json({
+                erro: true,
+                mensagem: "A data da reserva deve ser a partir de hoje.",
+            });
+        }
 
-        //verificar se a mesa consegue comportar o numero de pessoas indicado 
+        //verificar se a mesa consegue comportar o numero de pessoas indicado
+        if (n_pessoas > mesa.capacidade) {
+            return res.status(400).json({
+                erro: true,
+                mensagem: `A mesa suporta no máximo ${mesa.capacidade} pessoas.`,
+            });
+        } 
 
         //verificar se a mesa esta livre para a data selecionada
-
         if (mesa.reservas.lenght > 0) {
             return res.status(400).json({
                 erro: true,
@@ -55,3 +66,4 @@ class ReservaContoller {
 }
 
 module.exports = ReservaContoller;
+

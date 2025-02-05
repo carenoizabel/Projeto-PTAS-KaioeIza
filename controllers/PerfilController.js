@@ -8,7 +8,23 @@ class ProfileController{
         });
 
         //concluir a função
-    }
+        if(!usuario){
+            return res.status(404).json({
+                erro: true,
+                mensagem: "Usuário não encontrado"
+            });
+        }
+         res.json({
+            erro: false,
+            mensagem: "Perfil carregado",
+            usuario
+         });
+         }catch(error){
+            return res.status(500).json({
+                erro: true,
+                mensagem: "Erro ao carregar"
+            });
+         }
 
 
     static async atualizarPerfil(req, res){
@@ -20,6 +36,17 @@ class ProfileController{
                 email: email,
                 nome: nome,
             },
-        })
+        });
+        
+        res.json({
+            erro: false,
+            mensagem: "Perfil atualizado"
+        });
+    }catch(erro){
+        return res.status(500).json({
+            erro: true,
+            mensagem: "Erro ao atualizar"
+        });
     }
 }
+
