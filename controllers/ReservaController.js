@@ -90,19 +90,41 @@ class ReservaController {
     // Ver as reservas do usuário autenticado
     static async verMinhasReservas(req, res) {
         try {
+            // Verifica se o usuário está autenticado
+            if (!req.usuarioId) {
+                return res.status(401).json({
+                    erro: true,
+                    mensagem: "Usuário não autenticado.",
+                });
+            }
+    
+            // Busca reservas do usuário
             const reservas = await prisma.reserva.findMany({
                 where: { usuarioId: req.usuarioId },
                 include: { mesa: true },
             });
-            return res.json({ reservas });
+    
+            if (reservas.length === 0) {
+                return res.status(404).json({
+                    erro: true,
+                    mensagem: "Nenhuma reserva encontrada.",
+                });
+            }
+    
+            return res.status(200).json({
+                erro: false,
+                reservas,
+            });
+    
         } catch (error) {
-            console.error(error);
+            console.error("Erro ao buscar reservas:", error);
             return res.status(500).json({
                 erro: true,
-                mensagem: "Erro ao buscar reservas.",
+                mensagem: "Erro interno do servidor. " + error.message,
             });
         }
     }
+    
 
     // Cancelar uma reserva
     static async cancelarReserva(req, res) {

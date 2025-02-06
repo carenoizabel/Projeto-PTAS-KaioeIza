@@ -8,10 +8,14 @@ router.get("/", PerfilController.getPerfil);
 router.put("/", PerfilController.atualizarPerfil);
 
 // / perfil/atlualizar
+router.get('/', PerfilController.getPerfil);
+
 // / perfil/buscar
+router.get('/buscar', PerfilController.buscarPerfil);
 
-
-//POST E GET
 //PUT, PATCH, DELETE
+router.patch('/', PerfilController.atualizarParcialPerfil);
+
+router.delete('/', PerfilController.deletarPerfil);
 
 module.exports = router;

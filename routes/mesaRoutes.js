@@ -11,6 +11,6 @@ router.post(
      MesaController.novaMesa
     );
 
-    //route.get("/", MesaController.buscarMesas);
+    route.get("/", MesaController.buscarMesas);
 
 module.exports = router;

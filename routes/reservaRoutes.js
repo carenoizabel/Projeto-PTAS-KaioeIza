@@ -6,4 +6,6 @@ const AuthController = require('../controllers/AuthController');
 
 router.post("/novo", ReservaController.registrarReservas);
 
+router.post("/", AuthController.verificaPermissaoAdm, AuthController.autenticar, ReservaController.verMinhasReservas);
+
 module.exports = router;
